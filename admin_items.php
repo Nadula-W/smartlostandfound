@@ -1,16 +1,8 @@
 <?php
 // 1. Database Connection
-$conn = new mysqli("localhost", "root", "", "smartlostfound");
+include 'includes/connection.php';
 
-// Check if the connection is successful
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
-/* 2. Fetch items from the database.
-   Here we use a 'LEFT JOIN' to get the 'full_name' from the 'users' table 
-   matching the 'user_id' in the 'items' table.
-*/
 $sql = "SELECT items.*, users.full_name 
         FROM items 
         LEFT JOIN users ON items.user_id = users.user_id 
