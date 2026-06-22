@@ -1,6 +1,6 @@
 <?php
 // 1. Database Connection
-$conn = new mysqli("localhost", "root", "", "smartlostfound");
+include 'includes/connection.php';
 
 // Check if the connection is successful
 if ($conn->connect_error) {

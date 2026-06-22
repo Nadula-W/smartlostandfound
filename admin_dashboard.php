@@ -1,11 +1,5 @@
 <?php
-// 1. Database Connection
-$conn = new mysqli("localhost", "root", "", "smartlostfound");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'includes/connection.php';
 
 // 2. Get Total Users Count
 $sql_users = "SELECT COUNT(*) as total_users FROM users";

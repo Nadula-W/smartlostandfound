@@ -1,12 +1,11 @@
 <?php session_start();
 include 'includes/connection.php';
 
-$sql = "SELECT * FROM items ORDER BY item_id	 DESC LIMIT 3";
+$sql = "SELECT * FROM items ORDER BY item_id DESC LIMIT 3";
 
-$result = $conn->query($sql);
-
+$result = mysqli_query($conn, $sql);
 ?>
-
+    
 <!DOCTYPE html>
 <html lang="en">
 
