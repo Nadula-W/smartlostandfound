@@ -1,14 +1,12 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "smartlostfound", 3306);
+session_start();
 
-if($conn->connect_error){
-    die("Connection Failed : " . $conn->connect_error);
-}
+include 'includes/connection.php';
 
 $message = "";
 
-if(isset($_POST['register'])){
+if (isset($_POST['register'])) {
 
     $full_name = trim($_POST['full_name'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -18,7 +16,7 @@ if(isset($_POST['register'])){
 
     /* REMOVE STARTING 0 */
 
-    if(substr($phone, 0, 1) == "0"){
+    if (substr($phone, 0, 1) == "0") {
         $phone = substr($phone, 1);
     }
 
@@ -29,63 +27,68 @@ if(isset($_POST['register'])){
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
 
-    if(empty($full_name) || 
-       empty($email) || 
-       empty($phone_number) ||
-       empty($password) || 
-       empty($confirm_password)){
+    if (
+        empty($full_name) ||
+        empty($email) ||
+        empty($phone_number) ||
+        empty($password) ||
+        empty($confirm_password)
+    ) {
 
         $message = "All fields are required!";
 
-    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $message = "Invalid email address!";
 
-    }elseif($password != $confirm_password){
+    } elseif ($password != $confirm_password) {
 
         $message = "Passwords do not match!";
 
-    }elseif(strlen($password) < 6){
+    } elseif (strlen($password) < 6) {
 
         $message = "Password must be at least 6 characters!";
 
-    }else{
+    } else {
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+        /* CHECK IF EMAIL EXISTS */
+
         $check_email = "SELECT user_id FROM users WHERE email = ?";
 
-        $stmt = $conn->prepare($check_email);
+        $stmt = mysqli_prepare($conn, $check_email);
 
-        $stmt->bind_param("s", $email);
+        mysqli_stmt_bind_param($stmt, "s", $email);
 
-        $stmt->execute();
+        mysqli_stmt_execute($stmt);
 
-        $result = $stmt->get_result();
+        $result = mysqli_stmt_get_result($stmt);
 
-        if($result->num_rows > 0){
+        if (mysqli_num_rows($result) > 0) {
 
             $message = "Email already exists!";
 
-            $stmt->close();
+            mysqli_stmt_close($stmt);
 
-        }else{
+        } else {
 
-            $stmt->close();
+            mysqli_stmt_close($stmt);
+
+            /* INSERT USER */
 
             $sql = "INSERT INTO users
             (
                 full_name,
                 email,
                 password
-            ) 
-            
+            )
             VALUES
             (
                 ?, ?, ?
             )";
 
-            $stmt = $conn->prepare($sql);
+            $stmt = mysqli_prepare($conn, $sql);
 
             if(!$stmt){
                 $message = "Error preparing statement: " . $conn->error;
@@ -118,8 +121,7 @@ if(isset($_POST['register'])){
 
                 }
 
-                $stmt->close();
-            }
+            mysqli_stmt_close($stmt);
         }
     }
 }
@@ -146,26 +148,14 @@ if(isset($_POST['register'])){
 
     <div class="register-container">
 
-        <h1>
+        <h1>Create Your Account</h1>
 
-            Create Your Account
-
-        </h1>
-
-        <p>
-
-            Join the Smart Lost & Found platform
-
-        </p>
+        <p>Join the Smart Lost & Found platform</p>
 
         <?php
-
-        if($message != ""){
-
+        if ($message != "") {
             echo "<div class='message'>$message</div>";
-
         }
-
         ?>
 
         <form method="POST" action="register.php">
@@ -174,13 +164,9 @@ if(isset($_POST['register'])){
 
             <div class="form-group">
 
-                <label>
+                <label>Full Name</label>
 
-                    Full Name
-
-                </label>
-
-                <input 
+                <input
                     type="text"
                     name="full_name"
                     placeholder="Enter full name"
@@ -193,13 +179,9 @@ if(isset($_POST['register'])){
 
             <div class="form-group">
 
-                <label>
+                <label>Email Address</label>
 
-                    Email Address
-
-                </label>
-
-                <input 
+                <input
                     type="email"
                     name="email"
                     placeholder="Enter email"
@@ -212,41 +194,25 @@ if(isset($_POST['register'])){
 
             <div class="form-group">
 
-                <label>
-
-                    Phone Number
-
-                </label>
+                <label>Phone Number</label>
 
                 <div style="display:flex; gap:10px;">
 
-                    <select 
+                    <select
                         name="country_code"
                         required
                         style="width:120px;"
                     >
 
-                        <option value="94">
+                        <option value="94">+94</option>
 
-                            +94
+                        <option value="91">+91</option>
 
-                        </option>
-
-                        <option value="91">
-
-                            +91
-
-                        </option>
-
-                        <option value="1">
-
-                            +1
-
-                        </option>
+                        <option value="1">+1</option>
 
                     </select>
 
-                    <input 
+                    <input
                         type="text"
                         name="phone_number"
                         placeholder="771234567"
@@ -261,13 +227,9 @@ if(isset($_POST['register'])){
 
             <div class="form-group">
 
-                <label>
+                <label>Password</label>
 
-                    Password
-
-                </label>
-
-                <input 
+                <input
                     type="password"
                     name="password"
                     placeholder="Enter password"
@@ -280,13 +242,9 @@ if(isset($_POST['register'])){
 
             <div class="form-group">
 
-                <label>
+                <label>Confirm Password</label>
 
-                    Confirm Password
-
-                </label>
-
-                <input 
+                <input
                     type="password"
                     name="confirm_password"
                     placeholder="Confirm password"
@@ -295,9 +253,9 @@ if(isset($_POST['register'])){
 
             </div>
 
-            <!-- BUTTON -->
+            <!-- REGISTER BUTTON -->
 
-            <button 
+            <button
                 type="submit"
                 name="register"
                 class="register-btn"
@@ -324,11 +282,7 @@ if(isset($_POST['register'])){
             </p>
 
         </div>
-
     </div>
-
 </section>
-
 </body>
-
 </html>

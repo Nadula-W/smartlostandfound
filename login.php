@@ -3,13 +3,7 @@
 session_start();
 
 /* DATABASE CONNECTION */
-
-$conn = new mysqli("localhost", "root", "", "smartlostfound", 3306);
-
-if($conn->connect_error)
-{
-    die("Connection Failed : " . $conn->connect_error);
-}
+include 'includes/connection.php';
 
 $message = "";
 $messageType = "";
@@ -25,11 +19,12 @@ if(isset($_POST['login']))
 
     $sql = "SELECT * FROM users WHERE email='$email'";
 
-    $result = $conn->query($sql);
+    // Procedural approach
+    $result = mysqli_query($conn, $sql);
 
-    if($result->num_rows > 0)
+    if(mysqli_num_rows($result) > 0)
     {
-        $row = $result->fetch_assoc();
+        $row = mysqli_fetch_assoc($result);
 
         /* VERIFY HASHED PASSWORD */
 
@@ -101,8 +96,6 @@ if(isset($_POST['login']))
 
     <?php include 'includes/navbar.php'; ?>
 
-    <!-- LOGIN SECTION -->
-
     <section class="login-section">
 
         <div class="login-container">
@@ -115,8 +108,6 @@ if(isset($_POST['login']))
                 Login to continue
             </p>
 
-            <!-- MESSAGE -->
-
             <?php if($message != "") { ?>
 
                 <div class="message <?php echo $messageType; ?>">
@@ -128,8 +119,6 @@ if(isset($_POST['login']))
             <?php } ?>
 
             <form method="POST">
-
-                <!-- EMAIL -->
 
                 <div class="form-group">
 
@@ -146,8 +135,6 @@ if(isset($_POST['login']))
 
                 </div>
 
-                <!-- PASSWORD -->
-
                 <div class="form-group">
 
                     <label>
@@ -163,8 +150,6 @@ if(isset($_POST['login']))
 
                 </div>
 
-                <!-- REMEMBER -->
-
                 <div class="remember-section">
 
                     <input type="checkbox" id="remember">
@@ -174,8 +159,6 @@ if(isset($_POST['login']))
                     </label>
 
                 </div>
-
-                <!-- BUTTON -->
 
                 <button 
                     type="submit" 
@@ -188,8 +171,6 @@ if(isset($_POST['login']))
                 </button>
 
             </form>
-
-            <!-- REGISTER LINK -->
 
             <div class="register-link">
 
