@@ -30,7 +30,7 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Smart Lost & Found</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/admin_dashboard.css">
@@ -55,7 +55,7 @@ mysqli_close($conn);
             <span class="material-symbols-outlined">inventory_2</span>
             Items
         </a>
-        <a href="admin_claims.php" class="nav-item">
+        <a href="#" class="nav-item">
             <span class="material-symbols-outlined">assignment</span>
             Claims
         </a>
@@ -65,18 +65,7 @@ mysqli_close($conn);
         
         <div class="header">
             <h1>Overview</h1>
-            <a href="login.php" class="logout-btn">
-                <span class="material-symbols-outlined">logout</span>
-                Logout
-            </a>
-        </div>
-
-        <div class="welcome-banner">
-            <div class="welcome-text">
-                <h2>Welcome back, Admin! 👋</h2>
-                <p>System monitoring is active. Here is a quick snapshot of the Smart Lost & Found platform's activity and current pending workloads.</p>
-            </div>
-            <div class="welcome-shapes"></div>
+            <a href="login.php" class="logout-btn">Logout</a>
         </div>
 
         <div class="dashboard-cards">
