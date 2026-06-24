@@ -23,52 +23,7 @@ $result = mysqli_query($conn, $sql);
 
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <style>
-        .all-items-container {
-            width: 90%;
-            margin: 40px auto 80px auto;
-        }
-
-        .page-header {
-            margin-bottom: 45px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 20px;
-        }
-
-        .page-header h1 {
-            font-size: 38px;
-            color: #2b3674;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .page-header p {
-            color: #5e6c84;
-            font-size: 16px;
-        }
-
-        /* Action buttons stylings for list items */
-        .item-actions a {
-            padding: 8px 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .claim-btn-link {
-            background-color: #0d6efd;
-            color: white;
-        }
-
-        .claim-btn-link:hover {
-            background-color: #0056cc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/all-items.css?v=1.0" />
 </head>
 
 <body>

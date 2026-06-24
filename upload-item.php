@@ -13,12 +13,68 @@ $messageType = "";
 
 /* CATEGORY → MODELS */
 $models = array(
-    "Phone" => array("iPhone 15", "iPhone 14","iPhone 12", "Samsung S24", "OnePlus 12"),
-    "Laptop" => array("MacBook Air M2", "Dell XPS 13", "HP Pavilion", "Lenovo ThinkPad"),
-    "Bag" => array("Backpack", "School Bag", "Travel Bag"),
-    "Calculator" => array("Casio FX-991", "Sharp EL-506"),
-    "Wallet" => array("Leather Wallet", "Card Holder"),
-    "Keys" => array("House Keys", "Car Keys")
+
+    "Phone" => array(
+        "iPhone 15", "iPhone 15 Pro", "iPhone 14", "iPhone 13",
+        "Samsung Galaxy S24", "Samsung Galaxy S23", "Samsung A54",
+        "OnePlus 12", "OnePlus 11", "Xiaomi 14", "Google Pixel 8"
+    ),
+
+    "Laptop" => array(
+        "MacBook Air M2", "MacBook Pro M3",
+        "Dell XPS 13", "Dell Inspiron 15",
+        "HP Pavilion", "HP Spectre x360",
+        "Lenovo ThinkPad X1", "Lenovo IdeaPad",
+        "ASUS ZenBook", "Acer Aspire 5"
+    ),
+
+    "Bag" => array(
+        "Backpack", "School Bag", "Travel Bag",
+        "Laptop Bag", "Handbag", "Messenger Bag",
+        "Trolley Bag", "Sports Bag"
+    ),
+
+    "Calculator" => array(
+        "Casio FX-991EX", "Casio FX-991ES Plus",
+        "Sharp EL-506", "Texas Instruments TI-84",
+        "Citizen SR-260"
+    ),
+
+    "Wallet" => array(
+        "Leather Wallet", "Card Holder",
+        "Coin Wallet", "Travel Wallet",
+        "RFID Wallet"
+    ),
+
+    "Keys" => array(
+        "House Keys", "Car Keys",
+        "Motorbike Keys", "Office Keys",
+        "Locker Keys"
+    ),
+
+    // NEW CATEGORIES ADDED
+
+    "Watch" => array(
+        "Apple Watch Series 9", "Samsung Galaxy Watch 6",
+        "Casio Digital Watch", "Fossil Smartwatch",
+        "Rolex", "Seiko"
+    ),
+
+    "ID Card" => array(
+        "Student ID", "National ID", "Driving License",
+        "Employee ID", "Library Card"
+    ),
+
+    "Headphones" => array(
+        "AirPods Pro", "Sony WH-1000XM5",
+        "Samsung Buds2", "JBL Tune 510",
+        "Boat Rockerz"
+    ),
+
+    "Books" => array(
+        "Textbook", "Notebook", "Diary",
+        "Novel", "Exam Paper Folder"
+    )
 );
 
 if (isset($_POST['submit_item'])) {

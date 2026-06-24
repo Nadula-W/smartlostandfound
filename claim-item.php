@@ -1,19 +1,13 @@
 <?php
-
 session_start();
 
 include 'includes/connection.php';
 
-/* GET ITEM ID FROM URL */
-
 $item_id = (int)($_GET['item_id'] ?? 0);
 
-if(!$item_id)
-{
+if (!$item_id) {
     die("Invalid Item ID");
 }
-
-/* GET ITEM + FINDER DETAILS */
 
 $sql = "SELECT items.*, 
         users.full_name, 
@@ -24,24 +18,25 @@ $sql = "SELECT items.*,
         WHERE items.item_id = ?";
 
 $stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conn, $sql);
 
-if(!$stmt)
-{
+if (!$stmt) {
     die("Database Error: " . mysqli_error($conn));
 }
 
 mysqli_stmt_bind_param($stmt, "i", $item_id);
 mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_param($stmt, "i", $item_id);
+mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-if(!$result || mysqli_num_rows($result) == 0)
-{
+if (!$result || mysqli_num_rows($result) == 0) {
     die("Item Not Found");
 }
 
 $row = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -51,77 +46,59 @@ $row = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claim Item</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/claim-item.css">
 </head>
 
 <body>
-    <?php include 'includes/navbar.php'; ?>
-    
+
+<?php include 'includes/navbar.php'; ?>
+
 <?php
-    $is_logged_in = isset($_SESSION['user_id']);
-    ?>
+$is_logged_in = isset($_SESSION['user_id']);
+?>
 
 <section class="claim-page">
 
     <div class="claim-container">
 
+        <!-- ITEM DETAILS -->
         <div class="item-details">
 
-            <img 
-                src="<?php echo $row['image']; ?>"
-                class="item-image"
-                alt="Item Image"
-            >
+            <img src="<?php echo $row['image']; ?>" class="item-image" alt="Item Image">
 
-            <h2>
-                <?php echo $row['item_name']; ?>
-            </h2>
+            <h2><?php echo $row['item_name']; ?></h2>
 
-            <p>
-                <strong>Category:</strong>
-                <?php echo $row['category']; ?>
-            </p>
+            <p><strong>Category:</strong> <?php echo $row['category']; ?></p>
 
-            <p>
-                <strong>Location:</strong>
-                <?php echo $row['location']; ?>
-            </p>
+            <p><strong>Location:</strong> <?php echo $row['location']; ?></p>
 
-            <p>
-                <strong>Date:</strong>
-                <?php echo $row['created_at']; ?>
-            </p>
+            <p><strong>Date:</strong> <?php echo $row['created_at']; ?></p>
 
-            <p>
-                <strong>Description:</strong>
-                <?php echo $row['description']; ?>
-            </p>
+            <p><strong>Description:</strong> <?php echo $row['description']; ?></p>
 
         </div>
 
+        <!-- FINDER DETAILS -->
         <div class="finder-details">
 
             <h3>Finder Information</h3>
+            <h3>Finder Information</h3>
 
-            <p>
-                <strong>Name:</strong>
-                <?php echo $row['full_name']; ?>
-            </p>
+            <p><strong>Name:</strong> <?php echo $row['full_name']; ?></p>
 
-            <p>
-                <strong>Email:</strong>
-                <?php echo $row['email']; ?>
-            </p>
+            <p><strong>Email:</strong> <?php echo $row['email']; ?></p>
 
             <a 
                 href="mailto:<?php echo $row['email']; ?>?subject=Regarding%20the%20item%20<?php echo urlencode($row['item_name']); ?>" 
                 target="_blank"
                 class="whatsapp-btn"
-                >
-                    Contact via Email
+            >
+                Contact via Email
             </a>
+
         </div>
 
     </div>
@@ -129,5 +106,4 @@ $row = mysqli_fetch_assoc($result);
 </section>
 
 </body>
-
 </html>
