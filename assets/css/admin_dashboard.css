@@ -115,6 +115,7 @@
     }
 
     .logout-btn {
+        margin-top: auto;
         background-color: var(--danger-bg);
         color: var(--danger);
         border: none;

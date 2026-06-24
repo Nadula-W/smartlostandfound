@@ -53,6 +53,10 @@ $result = mysqli_query($conn, $sql);
             <span class="material-symbols-outlined">assignment</span>
             Claims
         </a>
+        <a href="login.php" class="logout-btn">
+                <span class="material-symbols-outlined">logout</span>
+                Logout
+        </a>
     </div>
 
     <div class="main-content">

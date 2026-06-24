@@ -59,16 +59,17 @@ mysqli_close($conn);
             <span class="material-symbols-outlined">assignment</span>
             Claims
         </a>
+        <a href="login.php" class="logout-btn">
+                <span class="material-symbols-outlined">logout</span>
+                Logout
+        </a>
     </div>
 
     <div class="main-content">
         
         <div class="header">
             <h1>Overview</h1>
-            <a href="login.php" class="logout-btn">
-                <span class="material-symbols-outlined">logout</span>
-                Logout
-            </a>
+            
         </div>
 
         <div class="welcome-banner">
