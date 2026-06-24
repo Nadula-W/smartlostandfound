@@ -1,22 +1,18 @@
-body
-{
-    font-family: Arial;
-    background: #f5f7fb;
-    margin: 0;
-}
-
-.claim-page
-{
+.claim-page {
     padding: 50px;
+    background-color: var(--bg-color, #F4F7FE);
+    min-height: 100vh;
 }
 
-.claim-container
-{
+.claim-container {
     max-width: 900px;
     margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(43, 54, 116, 0.05);
 }
 
 .item-image {
@@ -25,29 +21,32 @@ body
     height: 350px;
     object-fit: contain;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
+    border-radius: 15px;
 }
 
 .item-details,
 .finder-details,
-.claim-form
-{
+.claim-form {
     margin-bottom: 35px;
 }
 
-.whatsapp-btn
-{
-    display: inline-block;
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     margin-top: 15px;
-    background: #25D366;
+    background: #05CD99;
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
-.whatsapp-btn:hover
-{
-    background: #1ebe5d;
+.whatsapp-btn:hover {
+    background: #04b386;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(5, 205, 153, 0.2);
 }
