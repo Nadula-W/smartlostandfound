@@ -43,7 +43,7 @@ $result = mysqli_query($conn, $sql);
             <span class="material-symbols-outlined">inventory_2</span>
             Items
         </a>
-        <a href="#" class="nav-item">
+        <a href="admin_claims.php" class="nav-item">
             <span class="material-symbols-outlined">assignment</span>
             Claims
         </a>

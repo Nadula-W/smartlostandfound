@@ -19,11 +19,10 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users - Admin</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/admin_dashboard.css">
-    <link rel="stylesheet" href="assets/css/admin_users.css">
 </head>
 <body>
 
@@ -41,11 +40,11 @@ $result = mysqli_query($conn, $sql);
             <span class="material-symbols-outlined">group</span>
             Users
         </a>
-        <a href="#" class="nav-item">
+        <a href="admin_items.php" class="nav-item">
             <span class="material-symbols-outlined">inventory_2</span>
             Items
         </a>
-        <a href="#" class="nav-item">
+        <a href="admin_claims.php" class="nav-item">
             <span class="material-symbols-outlined">assignment</span>
             Claims
         </a>
@@ -54,40 +53,58 @@ $result = mysqli_query($conn, $sql);
     <div class="main-content">
         <div class="header">
             <h1>Registered Users</h1>
-            <a href="login.php" class="logout-btn">Logout</a>
+            <a href="login.php" class="logout-btn">
+                <span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
         </div>
 
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Full Name</th>
-                    <th>Email Address</th>
-                    <th>Registered Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // 3. Loop through the fetched database records and populate the table
-                if (mysqli_num_rows($result) > 0) {
-                    while($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['user_id'] . "</td>";
-                        echo "<td>" . $row['full_name'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
-                        echo "<td>" . $row['created_at'] . "</td>";
-                        echo "</tr>";
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>Registered Date</th>
+                        <th style="text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // 3. Loop through the fetched database records
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['user_id']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['full_name']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+                            
+                            // NEW: Action buttons for Edit and Delete
+                            echo "<td style='text-align: right;'>
+                                    <div class='action-btn-group'>
+                                        <a href='edit_user.php?id=" . $row['user_id'] . "' class='btn-icon btn-edit' title='Edit User'>
+                                            <span class='material-symbols-outlined'>edit</span>
+                                        </a>
+                                        <a href='delete_user.php?id=" . $row['user_id'] . "' class='btn-icon btn-delete' title='Delete User' onclick='return confirm(\"Are you sure you want to delete this user? This action cannot be undone.\");'>
+                                            <span class='material-symbols-outlined'>delete</span>
+                                        </a>
+                                    </div>
+                                  </td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        // Display message if no users exist
+                        echo "<tr><td colspan='5' style='text-align: center; padding: 40px; color: var(--text-muted);'>No users found in the system.</td></tr>";
                     }
-                } else {
-                    // Display message if no users exist in the database
-                    echo "<tr><td colspan='4'>No users found.</td></tr>";
-                }
-                
-                // Close the database connection
-                mysqli_close($conn);
-                ?>
-            </tbody>
-        </table>
+                    
+                    // Close the database connection
+                    mysqli_close($conn);
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 
