@@ -2,15 +2,12 @@
 
 session_start();
 
-/* DATABASE CONNECTION */
 include 'includes/connection.php';
-/* GOOGLE CONFIGURATION */
 include 'includes/google-config.php';
 
 $message = "";
 $messageType = "";
 
-/* GOOGLE OAUTH CALLBACK */
 if (isset($_GET['code'])) {
     $google_user = handleGoogleCallback($_GET['code']);
     
@@ -19,7 +16,6 @@ if (isset($_GET['code'])) {
         $full_name = $google_user['name'] ?? $google_user['given_name'] ?? 'Google User';
         $google_id = $google_user['sub']; // Unique Google User ID
 
-        // Check if user exists with this Google ID or Email
         $sql = "SELECT * FROM users WHERE google_id = ? OR email = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "ss", $google_id, $email);
@@ -29,7 +25,6 @@ if (isset($_GET['code'])) {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
 
-            // If user exists by email but Google ID is not linked yet, link it
             if (empty($row['google_id'])) {
                 $update_sql = "UPDATE users SET google_id = ? WHERE user_id = ?";
                 $update_stmt = mysqli_prepare($conn, $update_sql);

@@ -13,7 +13,7 @@ $messageType = "";
 
 /* CATEGORY → MODELS */
 $models = array(
-    "Phone" => array("iPhone 15", "iPhone 14", "Samsung S24", "OnePlus 12"),
+    "Phone" => array("iPhone 15", "iPhone 14","iPhone 12", "Samsung S24", "OnePlus 12"),
     "Laptop" => array("MacBook Air M2", "Dell XPS 13", "HP Pavilion", "Lenovo ThinkPad"),
     "Bag" => array("Backpack", "School Bag", "Travel Bag"),
     "Calculator" => array("Casio FX-991", "Sharp EL-506"),
@@ -76,17 +76,32 @@ if (isset($_POST['submit_item'])) {
                      " | " . $description;
 
         /* PROCEDURAL INSERT */
-        $sql = "INSERT INTO items 
-        (user_id, item_name, category, location, item_date, description, item_type, image)
-        VALUES 
-        ('$user_id', '$item_name', '$category', '$location', '$item_date', '$final_description', '$item_type', '$image_path')";
-
+       $sql = "INSERT INTO items
+            (user_id, item_name, category, location, item_date, description, item_type, image, color, model)
+            VALUES
+            (
+            '$user_id',
+            '$item_name',
+            '$category',
+            '$location',
+            '$item_date',
+            '$final_description',
+            '$item_type',
+            '$image_path',
+            '$color',
+            '$final_model'
+            )";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
-            $message = "Item reported successfully!";
-            $messageType = "success";
+
+            $item_id = mysqli_insert_id($conn);
+
+            header("Location: related-items.php?item_id=$item_id");
+            exit();
+
         } else {
+
             $message = "Error: " . mysqli_error($conn);
             $messageType = "error";
         }
